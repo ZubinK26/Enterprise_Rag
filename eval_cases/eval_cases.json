@@ -1,0 +1,44 @@
+[
+  {
+    "id": "expense_client_meals",
+    "question": "Can employees expense client dinners and what approvals are involved?",
+    "expected_source_file": "policy_expenses.md",
+    "must_contain": ["client", "approval"],
+    "should_need_human_review": false
+  },
+  {
+    "id": "privacy_pii_personal_devices",
+    "question": "Can I export customer PII onto my personal laptop for convenience?",
+    "expected_source_file": "policy_data_privacy.md",
+    "must_contain": ["PII", "personal"],
+    "should_need_human_review": false
+  },
+  {
+    "id": "security_mfa",
+    "question": "Is MFA required for workforce accounts that access administrative consoles?",
+    "expected_source_file": "policy_security.md",
+    "must_contain": ["MFA", "administrative"],
+    "should_need_human_review": false
+  },
+  {
+    "id": "support_priority_latency",
+    "question": "For Priority three support tickets how quickly should acknowledgement occur?",
+    "expected_source_file": "policy_support.md",
+    "must_contain": ["four", "hours"],
+    "should_need_human_review": false
+  },
+  {
+    "id": "it_access_temporary",
+    "question": "How long should temporary elevated privileged rights typically last before expiry?",
+    "expected_source_file": "policy_it_access.md",
+    "must_contain": ["seventy-two", "hours"],
+    "should_need_human_review": false
+  },
+  {
+    "id": "expense_travel_booking",
+    "question": "How should airfare and lodging be booked under the travel policy?",
+    "expected_source_file": "policy_expenses.md",
+    "must_contain": ["travel", "platform"],
+    "should_need_human_review": false
+  }
+]
