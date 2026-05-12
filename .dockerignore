@@ -1,0 +1,17 @@
+.git
+.venv
+__pycache__
+*.py[cod]
+.pytest_cache
+.ruff_cache
+
+# Never copy local secrets into images
+.env
+
+# Runtime DB on host (mounted via compose)
+app/data/logs.db
+app/data/vector_store/index.faiss
+app/data/vector_store/metadata.json
+
+.idea
+.vscode

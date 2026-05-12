@@ -1,8 +1,7 @@
 # Enterprise RAG + Agent Evaluator
 
-Small **FastAPI** service that demonstrates **document ingestion**, **chunking**, **local embeddings**, **FAISS retrieval**, **Gemini (OpenAI-compatible) generation**, **strict Pydantic validation**, **a one-shot repair loop**, **SQLite query logging**, and a **simple JSON regression harness** (`POST /evaluate`).
+Small **FastAPI** service with **document ingestion**, **chunking**, **local embeddings**, **FAISS retrieval**, **Gemini (OpenAI-compatible) generation**, **strict Pydantic validation**, **a one-shot repair loop**, **SQLite query logging**, and a **simple JSON regression harness** (`POST /evaluate`).
 
-Designed as a Junior GenAI / applied-ML portfolio piece: understandable code paths over framework noise.
 
 [![CI](https://github.com/ZubinK26/Enterprise_Rag/actions/workflows/ci.yml/badge.svg)](https://github.com/ZubinK26/Enterprise_Rag/actions/workflows/ci.yml)
 
@@ -192,11 +191,55 @@ curl -X POST http://127.0.0.1:8000/query -H "Content-Type: application/json" \
 
 First ingest downloads the **sentence-transformer** embedding model (~tens–hundreds MB depending on caching).
 
-### Quality checks
+### Quality checks & formatting
 
 ```bash
+pip install -r requirements-dev.txt      # pulls Ruff + pre-commit tooling
 pytest tests -q
+ruff format --check app tests
+ruff check app tests
+make lint      # Makefile shortcut (POSIX Make)
 ```
+
+Install optional git hooks locally:
+
+```bash
+pre-commit install
+```
+
+See **[CONTRIBUTING.md](./CONTRIBUTING.md)** and **[SECURITY.md](./SECURITY.md)** for housekeeping expectations.
+
+### Docker (Compose)
+
+Ensure `.env` exists next to [`docker-compose.yml`](./docker-compose.yml) (`env_file`). `app/data` is bind-mounted read/write:
+
+```bash
+docker compose build
+docker compose up
+```
+
+Health waits can take **several minutes** on first boot while sentence-transformers + FAISS ingest warm caches.
+
+### One-shot ingest + evaluate (against a running server)
+
+Requires `SERVER_URL` or defaults to `http://127.0.0.1:8000`.
+
+```bash
+# Terminal A
+uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
+
+# Terminal B (Git Bash / WSL — or use make demo after installing Make)
+SERVER_URL=http://127.0.0.1:8000 bash scripts/demo.sh
+```
+
+PowerShell:
+
+```powershell
+$env:SERVER_URL = 'http://127.0.0.1:8000'
+powershell -ExecutionPolicy Bypass -File scripts/demo.ps1
+```
+
+Artifacts (`results/demo_*.json`) are gitignored snapshots for ad-hoc runs; pinned examples stay in **`results/*_snapshot.json`**.
 
 ### Repository layout
 
@@ -231,7 +274,7 @@ tests/
 - Sample policy corpus wording + eval assertions aligned to those documents  
 - Trade-offs: sentence-transformers + FAISS for offline demo vs cloud-only embeddings  
 
-Treat LLM-produced prose in policy docs **as synthetic** — replace with sanitized internal samples before any real regulated use.
+
 
 ---
 

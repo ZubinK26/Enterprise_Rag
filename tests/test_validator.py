@@ -7,7 +7,7 @@ from app.rag.validator import (
     semantic_validate,
     validate_pipeline,
 )
-from app.schemas import RAGAnswer, SAFE_FALLBACK_ANSWER
+from app.schemas import SAFE_FALLBACK_ANSWER, RAGAnswer
 
 
 def sample_record() -> ChunkRecord:
@@ -16,8 +16,8 @@ def sample_record() -> ChunkRecord:
         source_file="policy_expenses.md",
         chunk_id="policy_expenses_001",
         text=(
-            'Client dinners may be reimbursed when there is documented business rationale. '
-            'Approvals escalate through Concur tiers.'
+            "Client dinners may be reimbursed when there is documented business rationale. "
+            "Approvals escalate through Concur tiers."
         ),
     )
 

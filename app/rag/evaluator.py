@@ -58,12 +58,8 @@ def analyze_case(case: EvalCase, response: QueryResponse) -> EvalCaseResult:
     expected_source_found = any(
         source.source_file == case.expected_source_file for source in response.sources
     )
-    must_contain_found = all(
-        fragment.lower() in answer_lower for fragment in case.must_contain
-    )
-    human_review_correct = (
-        response.needs_human_review == case.should_need_human_review
-    )
+    must_contain_found = all(fragment.lower() in answer_lower for fragment in case.must_contain)
+    human_review_correct = response.needs_human_review == case.should_need_human_review
     validation_passed = response.validation.passed
 
     checks = EvalCaseChecks(
@@ -135,10 +131,7 @@ def run_evaluation(settings: Settings, body: EvaluateRequest) -> EvaluateRespons
             )
         except HTTPException as exc:
             detail = exc.detail
-            if isinstance(detail, str):
-                reason = detail
-            else:
-                reason = "Query failed during evaluation."
+            reason = detail if isinstance(detail, str) else "Query failed during evaluation."
             response = _fallback_response(reasoning=reason)
 
         scored = analyze_case(case, response)

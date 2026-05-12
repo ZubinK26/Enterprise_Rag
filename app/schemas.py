@@ -4,9 +4,7 @@ from typing import Any, Self
 
 from pydantic import BaseModel, Field, field_validator, model_validator
 
-SAFE_FALLBACK_ANSWER = (
-    "I could not produce a validated answer from the available context."
-)
+SAFE_FALLBACK_ANSWER = "I could not produce a validated answer from the available context."
 
 
 class SourceReference(BaseModel):
@@ -32,11 +30,7 @@ class RAGAnswer(BaseModel):
 
     @staticmethod
     def is_safe_fallback(answer: str, confidence: float, needs_review: bool) -> bool:
-        return (
-            needs_review
-            and confidence == 0.0
-            and answer.strip() == SAFE_FALLBACK_ANSWER
-        )
+        return needs_review and confidence == 0.0 and answer.strip() == SAFE_FALLBACK_ANSWER
 
     @model_validator(mode="after")
     def low_confidence_requires_review(self) -> Self:
@@ -48,9 +42,7 @@ class RAGAnswer(BaseModel):
     def sources_required_unless_fallback(self) -> Self:
         if self.sources:
             return self
-        if self.is_safe_fallback(
-            self.answer, self.confidence, self.needs_human_review
-        ):
+        if self.is_safe_fallback(self.answer, self.confidence, self.needs_human_review):
             return self
         raise ValueError("sources must contain at least one entry (unless using safe fallback)")
 
@@ -151,7 +143,7 @@ class RunLogRecord(BaseModel):
     @field_validator("sources_json", "validation_errors_json", mode="before")
     @classmethod
     def _coerce_json_field(cls, v: Any) -> str:
-        if isinstance(v, (dict, list)):
+        if isinstance(v, dict | list):
             import json
 
             return json.dumps(v)

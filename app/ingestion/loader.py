@@ -27,9 +27,7 @@ def load_markdown_docs(docs_dir: Path) -> list[LoadedDocument]:
         return []
 
     documents: list[LoadedDocument] = []
-    paths = sorted(
-        list(docs_dir.glob("*.md")) + list(docs_dir.glob("*.txt")), key=lambda p: p.name
-    )
+    paths = sorted(list(docs_dir.glob("*.md")) + list(docs_dir.glob("*.txt")), key=lambda p: p.name)
     for path in paths:
         if path.name.startswith("."):
             continue

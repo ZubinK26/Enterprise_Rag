@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from time import perf_counter
 
 import httpx
@@ -19,14 +19,12 @@ from app.rag.validator import (
 )
 from app.schemas import QueryRequest, QueryResponse, ValidationResult
 
-_NO_INDEX_DETAIL = (
-    "Vector index not found. Run `POST /ingest` locally before querying."
-)
+_NO_INDEX_DETAIL = "Vector index not found. Run `POST /ingest` locally before querying."
 
 
 def run_query(settings: Settings, body: QueryRequest) -> QueryResponse:
     started = perf_counter()
-    timestamp = datetime.now(timezone.utc).isoformat()
+    timestamp = datetime.now(UTC).isoformat()
 
     try:
         store = read_store(settings.vector_store_dir)

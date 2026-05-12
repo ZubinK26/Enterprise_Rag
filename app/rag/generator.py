@@ -109,9 +109,11 @@ def _assistant_text(payload: dict[str, Any]) -> str:
             if isinstance(part, str):
                 parts.append(part)
             elif isinstance(part, dict):
-                if part.get("type") == "text" and isinstance(part.get("text"), str):
-                    parts.append(str(part["text"]))
-                elif isinstance(part.get("text"), str):
+                if (
+                    part.get("type") == "text"
+                    and isinstance(part.get("text"), str)
+                    or isinstance(part.get("text"), str)
+                ):
                     parts.append(str(part["text"]))
                 elif isinstance(part.get("content"), str):
                     parts.append(str(part["content"]))

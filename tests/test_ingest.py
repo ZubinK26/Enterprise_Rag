@@ -19,9 +19,11 @@ def test_ingest_returns_400_when_no_documents(tmp_path: Path) -> None:
         llm_api_key="",
     )
 
-    with patch.object(main, "get_settings", lambda: fake):
-        with TestClient(main.app) as client:
-            response = client.post("/ingest")
+    with (
+        patch.object(main, "get_settings", lambda: fake),
+        TestClient(main.app) as client,
+    ):
+        response = client.post("/ingest")
 
     assert response.status_code == 400
     assert "No markdown" in response.json()["detail"]

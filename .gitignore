@@ -3,6 +3,10 @@
 __pycache__/
 *.pyc
 .pytest_cache/
+.ruff_cache/
+
+# Local demo script output (keep committed snapshots in results/*_snapshot.json only)
+results/demo_*.json
 .idea/
 .vscode/
 

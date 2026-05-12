@@ -25,7 +25,6 @@ def format_retrieved_context(chunks: Sequence[tuple[ChunkRecord, float]]) -> str
     blocks: list[str] = []
     for record, _score in chunks:
         blocks.append(
-            f"[source_file={record.source_file} chunk_id={record.chunk_id}]\n"
-            f"{record.text}"
+            f"[source_file={record.source_file} chunk_id={record.chunk_id}]\n{record.text}"
         )
     return "\n\n---\n\n".join(blocks)

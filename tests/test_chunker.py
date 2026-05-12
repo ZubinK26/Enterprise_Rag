@@ -1,5 +1,3 @@
-from pathlib import Path
-
 from app.ingestion.chunker import chunk_document
 
 
@@ -25,8 +23,7 @@ def test_overlap_links_adjacent_chunks_when_multiple() -> None:
     if len(chunks) < 2:
         raise AssertionError("expected multiple chunks for overlap assertion")
     overlap_found = any(
-        chunks[i][-min(120, len(chunks[i])) :] in chunks[i + 1]
-        for i in range(len(chunks) - 1)
+        chunks[i][-min(120, len(chunks[i])) :] in chunks[i + 1] for i in range(len(chunks) - 1)
     )
     assert overlap_found
 

@@ -8,7 +8,7 @@ from pydantic import ValidationError
 
 from app.ingestion.vector_store import ChunkRecord
 from app.rag.generator import parse_llm_text_to_dict
-from app.schemas import RAGAnswer, SAFE_FALLBACK_ANSWER
+from app.schemas import SAFE_FALLBACK_ANSWER, RAGAnswer
 
 
 def _normalize_for_match(text: str) -> str:
@@ -32,9 +32,7 @@ def mentions_insufficient_context(answer: str) -> bool:
 def semantic_validate(answer: RAGAnswer, retrieved: Sequence[ChunkRecord]) -> list[str]:
     errors: list[str] = []
 
-    if RAGAnswer.is_safe_fallback(
-        answer.answer, answer.confidence, answer.needs_human_review
-    ):
+    if RAGAnswer.is_safe_fallback(answer.answer, answer.confidence, answer.needs_human_review):
         return errors
 
     if not answer.sources:
@@ -60,8 +58,6 @@ def semantic_validate(answer: RAGAnswer, retrieved: Sequence[ChunkRecord]) -> li
 
 
 def parse_answer_payload(raw_llm_output: str) -> tuple[RAGAnswer | None, list[str]]:
-    errors: list[str] = []
-
     try:
         data = parse_llm_text_to_dict(raw_llm_output)
     except json.JSONDecodeError:

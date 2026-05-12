@@ -5,7 +5,6 @@ import pytest
 from fastapi import HTTPException
 from fastapi.testclient import TestClient
 
-from app.main import app
 from app.rag.evaluator import analyze_case, load_eval_cases, resolve_case_file
 from app.schemas import (
     EvalCase,

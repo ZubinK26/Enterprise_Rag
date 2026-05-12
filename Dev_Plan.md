@@ -241,4 +241,23 @@ Include **exactly** these section themes (titles can vary slightly but content m
 
 ---
 
-**Status:** This `Dev_Plan.md` is the single implementation guide; execute phases A–J in order unless parallelizing tests/docs with backend work.
+## Phase K — Optional polish (employer GitHub norms)
+
+**Goals.** Docker/Compose reproducibility, demo scripts, CONTRIBUTING / SECURITY, **Ruff** lint+format in CI and optional pre-commit; strict **mypy** across torch stacks is deferred.
+
+**Artifacts**
+
+| Item | Purpose |
+|------|---------|
+| `Dockerfile`, `docker-compose.yml`, `.dockerignore` | Container API; secrets via `env_file`; data volume |
+| `Makefile` | `install-dev`, `lint`, `format`, `test`, Docker + `demo` |
+| `scripts/demo.sh`, `scripts/demo.ps1` | Poll `/health` → `/ingest` → `/evaluate` |
+| `pyproject.toml`, `requirements-dev.txt`, `.pre-commit-config.yaml` | Ruff + hooks |
+| `.github/workflows/ci.yml` | Extend with Ruff after pytest |
+
+**Phase K exit.** `docker compose up --build` exposes `/health`; `make lint && make test` succeeds.
+
+---
+
+**Plan status.** Phases **A–J** = core precursor delivery; **Phase K** = optional polish.
+
