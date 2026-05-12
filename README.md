@@ -4,9 +4,11 @@ Small **FastAPI** service that demonstrates **document ingestion**, **chunking**
 
 Designed as a Junior GenAI / applied-ML portfolio piece: understandable code paths over framework noise.
 
-[![CI](https://github.com/YOUR_USERNAME/Ent_Rag/actions/workflows/ci.yml/badge.svg)](https://github.com/YOUR_USERNAME/Ent_Rag/actions/workflows/ci.yml)
+[![CI](https://github.com/ZubinK26/Ent_Rag/actions/workflows/ci.yml/badge.svg)](https://github.com/ZubinK26/Ent_Rag/actions/workflows/ci.yml)
 
-> Replace `YOUR_USERNAME/Ent_Rag` with your GitHub slug after pushing, or remove the badge.
+> If you name the repo something other than **`Ent_Rag`**, edit the badge URLs accordingly.
+
+Pinned **offline snapshots** from a clean local ingest + Gemini eval run live under [`results/ingest_snapshot.json`](./results/ingest_snapshot.json) and [`results/evaluate_snapshot.json`](./results/evaluate_snapshot.json) (`6/6` passed when captured).
 
 ---
 
