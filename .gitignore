@@ -1,3 +1,7 @@
+# Internal planning specs (keep local — not shipped in the portfolio repo)
+Dev_Plan.md
+Dev_Plan_Precursor.md
+
 .env
 .venv/
 __pycache__/
